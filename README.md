@@ -76,6 +76,8 @@ As soon as you arrive, a background process will kick off to begin calculating t
 
 The loading modal will disappear once all repositories are found.
 
+To ensure valid data, each time the /calculations page is loaded, all previous background jobs are cleared, and all projects from the database are deleted. - Don't like this but it makes sure that the numbers you see on the screen and the database are up-to-date. Plus, it was the quickest thing I could think of! A cool refresh me button would have also made more sense! 
+
 ## Database
 Once complete, all projects are stored in a database. To get access to the database in one of two ways:
 
