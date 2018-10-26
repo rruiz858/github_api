@@ -18,26 +18,27 @@ This project uses .env to handle env variables. The following env variables are 
 You'll need to fill only the Github related tokens.
 ### Rails
 ```
-PG_DB_HOST: postgres
-PG_DB_PORT: 5432
-PG_DB_USER_NAME: postgres
-PG_DB_PASSWORD: password
+PG_DB_HOST:
+PG_DB_PORT:
+PG_DB_USER_NAME:
+PG_DB_PASSWORD:
 ```
 
 ### Redis
 ```
-REDIS_HOST: redis
-REDIS_PORT: 6379
+REDIS_HOST:
+REDIS_PORT:
 ```
 
 ### Github
 ```
 GITHUB_CLIENT_ID:
 GITHUB_CLIENT_SECRET:
-REDIRECT_URI: http://localhost:4667/callback
+REDIRECT_URI:
 ```
 
-In order for this project to function, you'll need to create a new Oauth App. It's super simple!
+The only variables you need to change in the .env are the client_id and client_secret for github.
+In order for this project to function, you'll need to create a new OAuth App. It's super simple!
 Sign in to Github, go to the following link:
 https://github.com/settings/developers.
 Once there, click on New OAuth Application. Give the application what ever name you want!
@@ -76,7 +77,7 @@ As soon as you arrive, a background process will kick off to begin calculating t
 
 The loading modal will disappear once all repositories are found.
 
-To ensure valid data, each time the /calculations page is loaded, all previous background jobs are cleared, and all projects from the database are deleted. - Don't like this but it makes sure that the numbers you see on the screen and the database are up-to-date. Plus, it was the quickest thing I could think of! A cool refresh me button would have also made more sense! 
+To ensure valid data, each time the /calculations page is loaded, all previous background jobs are cleared, and all projects from the database are deleted. - Don't like this but it makes sure that the numbers you see on the screen and the database are up-to-date. Plus, it was the quickest thing I could think of! A cool refresh me button would have also made more sense!
 
 ## Database
 Once complete, all projects are stored in a database. To get access to the database in one of two ways:
