@@ -1,0 +1,21 @@
+--- !map:HashWithIndifferentAccess
+common: &default_settings
+  client_id: <%= ENV['GITHUB_CLIENT_ID'] %>
+  client_secret: <%= ENV['GITHUB_CLIENT_SECRET'] %>
+  site: https://github.com
+  authorize_url: /login/oauth/authorize
+  token_url: /login/oauth/access_token
+  redirect_uri: <%= ENV['REDIRECT_URI'] %>
+
+  connection_opts:
+    headers:
+      content-type: application/json
+      accept: application/json
+
+development:
+  <<: *default_settings
+
+test:
+  <<: *default_settings
+  client_id: github_test_client_id
+  site: https://api.github.test

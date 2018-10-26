@@ -1,0 +1,59 @@
+<ul id='getCalculationsList'>
+  <% @calculations.each do |calculation| %>
+    <li><%="#{calculation.min_range} to #{calculation.max_range} stars: #{project_count(calculation.projects_count)} projects"%></li>
+  <%end%>
+</ul>
+
+<div id="getCountByStars" data-count="<%= count_by_stars_path %>"></div>
+<div class="loading_modal"></div>
+
+<script>
+  $(document).ready(function () {
+    var interval = null;
+    interval = setInterval(refreshingList, 2000);
+    var countRoute = $("#getCountByStars").data('count');
+     $('body').addClass('loading');
+    function refreshingList() {
+      $.ajax({
+        type: "GET",
+        url: countRoute,
+        dataType: "json",
+        success: function (data) {
+          if (!$.isArray(data) || data == null) {
+            stopItGuys(interval);
+          } else {
+              var str = ''
+              data.forEach(function (record) {
+                var displayCount = ''
+                displayCount = record.projects_count == null
+                  ? 'calculating..'
+                  : record.projects_count
+                str += '<li>' + record.min_range + ' to ' + record.max_range + ' stars: ' + displayCount + ' projects</li>';
+              });
+              $("#getCalculationsList").html(str);
+              if (finishedCalculating(data)) {
+                stopItGuys(interval);
+                alert('It\'s done!');
+              }
+          }
+        },
+        error: function (status) {
+          stopItGuys(interval)
+        }
+      });
+
+      function finishedCalculating(obj) {
+        for (var i in obj)
+          if (obj[i].is_finished_calculating == null) {
+            return false;
+          }
+        return true;
+      }
+
+      function stopItGuys(interval){
+        $('body').removeClass('loading');
+        clearInterval(interval);
+      }
+    }
+  });
+</script>

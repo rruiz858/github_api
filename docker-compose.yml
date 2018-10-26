@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:9.6
+    env_file: .env
+    volumes:
+      - postgres-api-data:/var/lib/postgresql/data
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  app:
+    stdin_open: true
+    env_file: .env
+    build: .
+    volumes:
+      - .:/app
+    links:
+      - postgres:postgres
+    ports:
+      - "4667:3000"
+    depends_on:
+      - postgres
+      - redis
+
+  sidekiq:
+    build: .
+    env_file: .env
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - postgres
+    command: ["bundle", "exec", "sidekiq"]
+
+  sidekiqweb:
+    image: drujensen/sidekiqweb:latest
+    environment:
+      REDIS_PROVIDER: REDIS_URL
+      REDIS_URL: redis://redis:6379
+    ports:
+      - '3089:3000'
+    depends_on:
+      - redis
+volumes:
+  postgres-api-data:
+    external: true
