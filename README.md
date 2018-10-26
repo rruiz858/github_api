@@ -1,13 +1,13 @@
 Project obtains projects from the Git Hub API that follow the following criteria:
-..*have been updated within the last day
-..*must have between 1 and 2000 stars
-..*must not be forks
-..*must specify one of the following OSS license:
-..*apache-2.0
-..*gpl
-..*lgpl
-..*mit
-..*use ruby or javascript
+1.have been updated within the last day
+2.must have between 1 and 2000 stars
+3.must not be forks
+4.must specify one of the following OSS license:
+apache-2.0
+  *gpl
+  *lgpl
+  *mit
+  *use ruby or javascript
 
 
 # Local Setup
