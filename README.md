@@ -1,4 +1,4 @@
-Project obtains projects from the Github API that follow the following criteria:
+Project obtains repositories from the Github API that follow the following criteria:
 1. have been updated within the last day
 2. must have between 1 and 2000 stars
 3. must not be forks
