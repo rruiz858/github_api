@@ -1,13 +1,13 @@
 Project obtains projects from the Git Hub API that follow the following criteria:
-*have been updated within the last day
-*must have between 1 and 2000 stars
-*must not be forks
-*must specify one of the following OSS license:
-*apache-2.0
-*gpl
-*lgpl
-*mit
-*use ruby or javascript
+..*have been updated within the last day
+..*must have between 1 and 2000 stars
+..*must not be forks
+..*must specify one of the following OSS license:
+..*apache-2.0
+..*gpl
+..*lgpl
+..*mit
+..*use ruby or javascript
 
 
 # Local Setup
@@ -30,7 +30,7 @@ REDIS_HOST: redis
 REDIS_PORT: 6379
 ```
 
-## GITHUB
+### GITHUB
 ```
 GITHUB_CLIENT_ID:
 GITHUB_CLIENT_SECRET:
@@ -39,7 +39,7 @@ REDIRECT_URI: http://localhost:4667/callback
 
 In order for this project to function, you'll need to create a new Oauth App. It's super simple!
 Sign in to Github, go to the following link:
-https://github.com/settings/developers
+https://github.com/settings/developers.
 Once there, click on New OAuth Application. Give the application what ever name you want!
 The most important part is the callback url! Set it to:
 http://localhost:4667/callback
@@ -63,7 +63,7 @@ This will create the database!  Yay!
 
 That should be it!
 
-### Flow
+#Flow
 Assuming all the aforementioned steps were completed successfully, you should be able to go visit:
 http://localhost:4667
 
@@ -81,14 +81,14 @@ Once complete, all projects are stored in a database. To get access to the datab
 or
 2. docker into the rails console via the docker api 'docker exec -it github_api_app_1 rails c'
 
-###Notable Gems
+#Notable Gems
 
 ##Sidekiq
 In order not to have to wait until all of the API calls are complete, Sidekiq is used to asynchronously process
 all requests.
 All workers can be found under the /app/workers folder
 
-#OAuth2
+##OAuth2
 A ruby wrapper for the OAuth2 specification
 This gem was used to fetch the access_token from Github. Once token obtained, the gem(Used Faraday as its HTTP client) to communicate with Github. This work can be found under the /lib/github_api folder
 Here you'll be able to see the work I did to build the request, send the response, and paginate the requests.
@@ -101,7 +101,7 @@ Github has a great search ability that returns all repositories with conditions 
 
 These 3 main reasons limit the time of completion!
 
-##Areas of work
+#Areas of work
 1. Testing Testing Testing! I time boxed this project and man oh man how it hurts to send this without tests
 2. Error handling. - Jobs need to restart if error occur.
 3. Better implementation of rate limiting wait approach; I check the rate limit remaining to determine the time of the next request.
