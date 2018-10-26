@@ -1,37 +1,36 @@
-FROM alpine:3.8
-MAINTAINER rruizveve@gmail.com
+FROM ruby:2.5
+MAINTAINER rrruizveve@gmail.com
 
-ENV APP_HOME="/app" \
-    GEMS="/usr/local/bundle" \
-    ENTRY_POINT_DIR="docker-entrypoint-init.d" \
-    RUBY_PACKAGES="ruby ruby-dev ruby-rdoc ruby-irb ruby-io-console ruby-json yaml ruby-rake ruby-bigdecimal ruby-etc ruby-webrick nodejs-npm curl jq" \
-    DEV_PACKAGES="zlib-dev libxml2-dev libffi-dev libxslt-dev postgresql-dev tzdata yaml-dev libstdc++ bash ca-certificates imagemagick" \
-    BUILD_PACKAGES="build-base libressl-dev libc-dev linux-headers git"
+# Install apt based dependencies required to run Rails as
+# well as RubyGems. As the Ruby image itself is based on a
+# Debian image, we use apt-get to install those.
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  nodejs
 
-RUN apk update && apk --update add $DEV_PACKAGES $RUBY_PACKAGES
+# Configure the main working directory. This is the base
+# directory used in any further RUN, COPY, and ENTRYPOINT
+# commands.
+RUN mkdir -p /app
+WORKDIR /app
 
-RUN npm install apidoc -g
+# Copy the Gemfile as well as the Gemfile.lock and install
+# the RubyGems. This is a separate step so the dependencies
+# will be cached unless changes to one of those two files
+# are made.
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && bundle install --jobs 20 --retry 5
 
-RUN mkdir -p /aws && \
-    apk -Uuv add groff less python py-pip && \
-    pip install awscli && \
-    apk --purge -v del py-pip && \
-    rm /var/cache/apk/*
+# Copy the main application.
+COPY . ./
 
-ADD Gemfile $GEMS/
-ADD Gemfile.lock $GEMS/
-WORKDIR $GEMS
-
-RUN apk --update add --no-cache --virtual build-dependencies $BUILD_PACKAGES && \
-    gem install bundler && \
-    bundle install --jobs=4 && \
-    apk del build-dependencies && \
-    rm -rf /var/cache/apk/*
-
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-ADD . $APP_HOME
+# Expose port 3000 to the Docker host, so we can access it
+# from the outside.
 EXPOSE 3000
 
+# The main command to run when the container starts. Also
+# tell the Rails dev server to bind to all interfaces by
+# default.
 CMD ["sudo", "rm", "tmp/pids/server.pid"]
-CMD ["rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
