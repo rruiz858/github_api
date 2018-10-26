@@ -87,16 +87,16 @@ or
 In order not to have to wait until all of the API calls are complete, Sidekiq is used to asynchronously process
 all requests.
 All workers can be found under the
-`/app/workers` folder of the project
+`/app/workers` folder of the project.
 
 ## OAuth2
 A ruby wrapper for the OAuth2 specification
 This gem was used to fetch the access_token from Github. Once token obtained, the gem(Used Faraday as its HTTP client) to communicate with Github.
-This work can be found under the `/lib/github_api` folder of the project
-Here you'll be able to see the work I did to build the request, send the response, and paginate the requests.
+This work can be found under the `/lib/github_api` folder of the project.
+There you'll be able to see the work I did to build the request, send the response, and paginate the requests.
 
 
-## Limitations:
+## Limitations
 Github has a great search ability that returns all repositories with conditions that help refine the search. The problem that I ran into was that:
 1. /search endpoint has a rate limit of 30 hits a minute
 2. Github has a max per_page of 100
@@ -104,7 +104,7 @@ Github has a great search ability that returns all repositories with conditions 
 
 These 3 main reasons limit the time of completion!
 
-Areas of work
+### Areas of work
 1. Testing Testing Testing! I time boxed this project and man oh man how it hurts to send this without tests
 2. Error handling. - Jobs need to restart if error occur.
 3. Better implementation of rate limiting wait approach; I check the rate limit remaining to determine the time of the next request.
