@@ -1,13 +1,13 @@
 Project obtains projects from the Git Hub API that follow the following criteria:
-1.have been updated within the last day
-2.must have between 1 and 2000 stars
-3.must not be forks
-4.must specify one of the following OSS license:
-apache-2.0
-  *gpl
-  *lgpl
-  *mit
-  *use ruby or javascript
+1. have been updated within the last day
+2. must have between 1 and 2000 stars
+3. must not be forks
+4. must specify one of the following OSS license:
+  * apache-2.0
+  * gpl
+  * lgpl
+  * mit
+  * use ruby or javascript
 
 
 # Local Setup
@@ -63,7 +63,7 @@ This will create the database!  Yay!
 
 That should be it!
 
-#Flow
+# Flow
 Assuming all the aforementioned steps were completed successfully, you should be able to go visit:
 http://localhost:4667
 
@@ -81,14 +81,14 @@ Once complete, all projects are stored in a database. To get access to the datab
 or
 2. docker into the rails console via the docker api 'docker exec -it github_api_app_1 rails c'
 
-#Notable Gems
+# Notable Gems
 
-##Sidekiq
+## Sidekiq
 In order not to have to wait until all of the API calls are complete, Sidekiq is used to asynchronously process
 all requests.
 All workers can be found under the /app/workers folder
 
-##OAuth2
+## OAuth2
 A ruby wrapper for the OAuth2 specification
 This gem was used to fetch the access_token from Github. Once token obtained, the gem(Used Faraday as its HTTP client) to communicate with Github. This work can be found under the /lib/github_api folder
 Here you'll be able to see the work I did to build the request, send the response, and paginate the requests.
@@ -101,7 +101,7 @@ Github has a great search ability that returns all repositories with conditions 
 
 These 3 main reasons limit the time of completion!
 
-#Areas of work
+Areas of work
 1. Testing Testing Testing! I time boxed this project and man oh man how it hurts to send this without tests
 2. Error handling. - Jobs need to restart if error occur.
 3. Better implementation of rate limiting wait approach; I check the rate limit remaining to determine the time of the next request.
