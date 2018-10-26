@@ -80,7 +80,7 @@ Once complete, all projects are stored in a database. To get access to the datab
 
 1. docker into the postgres container `docker exec -it github_api_postgres_1 psql -U postgres`
 or
-2. docker into the rails console via the docker api 'docker exec -it github_api_app_1 rails c'
+2. docker into the rails console via the docker api `docker exec -it github_api_app_1 rails c`
 
 # Notable Gems
 
