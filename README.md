@@ -63,7 +63,7 @@ This will create the database!  Yay!
 
 That should be it!
 
-# Flow
+## Flow
 Assuming all the aforementioned steps were completed successfully, you should be able to go visit:
 http://localhost:4667
 
@@ -74,7 +74,7 @@ As soon as you arrive, a background process will kick off to begin calculating t
 
 The loading modal will disappear once all repositories are found.
 
-##Database
+## Database
 Once complete, all projects are stored in a database. To get access to the database in one of two ways:
 
 1. docker into the postgres container `docker exec -it github_api_postgres_1 psql -U postgres`
@@ -86,12 +86,15 @@ or
 ## Sidekiq
 In order not to have to wait until all of the API calls are complete, Sidekiq is used to asynchronously process
 all requests.
-All workers can be found under the /app/workers folder
+All workers can be found under the
+`/app/workers` folder of the project
 
 ## OAuth2
 A ruby wrapper for the OAuth2 specification
-This gem was used to fetch the access_token from Github. Once token obtained, the gem(Used Faraday as its HTTP client) to communicate with Github. This work can be found under the /lib/github_api folder
+This gem was used to fetch the access_token from Github. Once token obtained, the gem(Used Faraday as its HTTP client) to communicate with Github.
+This work can be found under the `/lib/github_api` folder of the project
 Here you'll be able to see the work I did to build the request, send the response, and paginate the requests.
+
 
 ## Limitations:
 Github has a great search ability that returns all repositories with conditions that help refine the search. The problem that I ran into was that:
