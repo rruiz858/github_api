@@ -46,6 +46,8 @@ http://localhost:4667/callback
 
 Once Registered, you'll have a client id and a client secret! Plop those in to the .env file!
 
+Make sure to complete this, otherwise it ain't going to work.
+
 ### Docker
 It uses docker!
 Follow the Docker [Getting Started](https://docs.docker.com/mac/started/) guide to get `docker`, `docker-machine` and `docker-compose`.
@@ -68,7 +70,7 @@ Assuming all the aforementioned steps were completed successfully, you should be
 http://localhost:4667
 
 Here, you should be able to click on the `Click Here` link. This will take on a joy ride to the auth process.
-Once finished, you'll be redirected over to a beautiful page(with some Ajax magic)showing results.
+Once finished, you'll be redirected over to a beautiful page(with some Ajax magic found in /app/views/calculations/index) showing results.
 
 As soon as you arrive, a background process will kick off to begin calculating the total number of repositories for the last 24 hours (from the time of page load) split into ranges of stars.
 
@@ -107,4 +109,6 @@ These 3 main reasons limit the time of completion!
 ### Areas of work
 1. Testing Testing Testing! I time boxed this project and man oh man how it hurts to send this without tests
 2. Error handling. - Jobs need to restart if error occur.
-3. Better implementation of rate limiting wait approach; I check the rate limit remaining to determine the time of the next request.
+3. Error handling. - If user revokes token and if job is running, worker will gracefully stop..
+4. Better implementation of rate limiting wait approach; I check the rate limit remaining to determine the time of the next request.
+5. It's slow....
