@@ -54,15 +54,11 @@ It uses docker!
 Follow the Docker [Getting Started](https://docs.docker.com/mac/started/) guide to get `docker`, `docker-machine` and `docker-compose`.
 
 Go ahead and clone the project!
-Set up Volume:
-`docker volume create --name=postgres-api-data`
+1. Set up Volume: `docker volume create --name=postgres-api-data`
 
-Run
-`docker-compose up --build`
+2. Run `docker-compose up --build`
 
-On a different terminal, cd into the project and run
-`source setup.sh`
-This will create the database!  Yay!
+3. On a different terminal, cd into the project and run `source setup.sh`  - This will create the database!  Yay!
 
 That should be it!
 
